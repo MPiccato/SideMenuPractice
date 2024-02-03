@@ -23,51 +23,53 @@ struct ContentSideMenuView: View {
                     .onTapGesture {
                         isShowing.toggle()
                     }
-            }
-            HStack {
-                VStack(alignment: .leading, spacing: 32.0) {
-                    VStack {
-                        ForEach(SideMenuOptionModel.allCases){ option in
-                            RoadViewItem(option: option, selectedOption: $selectedOption)
-                                .onTapGesture {
-                                    onOptionTapped(option)
-                                }
-                            
-                        }
-                        Spacer()
-                        
-                        //Perfil
-                        Divider()
-                        VStack(alignment: .leading) {
-                            HeaderView()
-                            HStack {
-                                Image(systemName: "moon.fill")
-                                
-                                Text("Light Mode")
-                                    .font(.footnote)
-                                Toggle("", isOn: $isDarkModeOn)
-                                Spacer()
-                            }
-                            
-                            HStack {
-                                Image(systemName: "person.fill")
-                                
-                                Text("Logout")
-                                    .font(.footnote)
-                                Spacer()
-                            }
-                        }
-                        .padding(.leading)
-                    }
-                }
-                .padding()
-                .frame(width: 270, alignment: .leading)
-                .background(isDarkModeOn ? .gray : .white)
                 
-                Spacer()
+                HStack {
+                    VStack(alignment: .leading, spacing: 32.0) {
+                        VStack {
+                            ForEach(SideMenuOptionModel.allCases){ option in
+                                RoadViewItem(option: option, selectedOption: $selectedOption)
+                                    .onTapGesture {
+                                        onOptionTapped(option)
+                                    }
+                                
+                            }
+                            Spacer()
+                            
+                            //Perfil
+                            Divider()
+                            VStack(alignment: .leading) {
+                                HeaderView()
+                                HStack {
+                                    Image(systemName: "moon.fill")
+                                    
+                                    Text("Light Mode")
+                                        .font(.footnote)
+                                    Toggle("", isOn: $isDarkModeOn)
+                                    Spacer()
+                                }
+                                
+                                HStack {
+                                    Image(systemName: "person.fill")
+                                    
+                                    Text("Logout")
+                                        .font(.footnote)
+                                    Spacer()
+                                }
+                            }
+                            .padding(.leading)
+                        }
+                    }
+                    .padding()
+                    .frame(width: 270, alignment: .leading)
+                    .background(isDarkModeOn ? .gray : .white)
+                    
+                    Spacer()
+                }
+                .transition(.move(edge: .leading))
             }
-            .transition(.move(edge: .leading))
         }
+        .animation(.easeInOut, value: isShowing)
     }
     
     private func onOptionTapped(_ option: SideMenuOptionModel) {

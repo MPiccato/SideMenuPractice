@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var showMenu = false
     @State private var selectedTab = 0
+    @AppStorage("isDarkModeOn") private var isDarkModeOn = false
     
     var body: some View {
         NavigationStack {
@@ -25,6 +26,17 @@ struct ContentView: View {
                         .tag(3)
                     Text("Notification")
                         .tag(4)
+                }
+                ContentSideMenuView(isShowing: $showMenu, selectedTab: $selectedTab)
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        showMenu.toggle()
+                    }, label: {
+                        Image(systemName: "line.3.horizontal")
+                            .foregroundColor(isDarkModeOn ? .white : .gray)
+                    })
                 }
             }
         }
